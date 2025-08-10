@@ -28,6 +28,10 @@ function App() {
           <Counter initialValue={5} />
         </div>
 
+        <div className="counter-container">
+          <Counter initialValue={5} />
+        </div>
+
         <div className="search-container">
           <SearchForm initialQuery="Avengers" onSearch={console.log} />
         </div>

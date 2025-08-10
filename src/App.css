@@ -3,9 +3,10 @@
   background-color: #282c34;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-logo {
+  height: 200px;
+  height: 200px;
+  pointer-events: none; 
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -29,6 +30,7 @@
   color: #61dafb;
 }
 
+.counter-container,
 .search-container,
 .genre-select-container {
   padding-bottom: 2rem;

@@ -14,7 +14,7 @@ export const SearchForm: FC<SearchFormProps> = ({
 
   const triggerSearch = () => onSearch(query.trim());
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
     if (e.key === 'Enter') triggerSearch();
   };
 
@@ -25,10 +25,9 @@ export const SearchForm: FC<SearchFormProps> = ({
         placeholder="What do you want to watch?"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
         aria-label="Search movies"
       />
-      <button className="search-button" onClick={triggerSearch}>
+      <button className="search-button" onClick={triggerSearch} onKeyDown={handleKeyDown}>
         SEARCH
       </button>
     </div>

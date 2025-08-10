@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { SearchForm } from "./components";
+import { GenreSelect, SearchForm } from "./components";
+
+const genres = ["ALL", "COMEDY", "HORROR", "CRIME", "DOCUMENTARY"];
 
 function App() {
+  const [selected, setSelected] = useState("ALL");
+
   return (
     <div className="App">
       <header className="App-header">
@@ -16,7 +20,19 @@ function App() {
         />
       </header>
       <main>
-        <SearchForm initialQuery="Avengers" onSearch={console.log} />
+
+        <div className="search-container">
+          <SearchForm initialQuery="Avengers" onSearch={console.log} />
+        </div>
+
+        <div className="genre-select-container">
+          <GenreSelect
+            genres={genres}
+            selectedGenre={selected}
+            onSelect={setSelected}
+          />
+        </div>
+
       </main>
     </div>
   );

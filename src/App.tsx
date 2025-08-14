@@ -24,23 +24,24 @@ function App() {
         />
       </header>
       <main>
-        <div className="counter-container">
-          <Counter initialValue={5} />
-        </div>
-
-        <div className="counter-container">
+        <div className="counter-container" data-cy="counter">
           <Counter initialValue={5} />
         </div>
 
         <div className="search-container">
-          <SearchForm initialQuery="Avengers" onSearch={console.log} />
+          <SearchForm
+            data-cy-search-input
+            data-cy-search-btn
+            initialQuery="Avengers"
+            onSearch={console.log}
+          />
         </div>
 
-        <div className="genre-select-container">
+        <div className="genre-select-container" data-cy="genre-select">
           <GenreSelect
             genres={Object.keys(GENRES)}
             selectedGenre={selected}
-            onSelect={setSelected}
+            onChange={setSelected}
           />
         </div>
       </main>

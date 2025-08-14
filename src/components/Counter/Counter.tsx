@@ -24,17 +24,25 @@ export class Counter extends React.Component<CounterProps, CounterState> {
       { className: "counter" },
       React.createElement(
         "button",
-        { className: "counter-btn", onClick: this.decrement },
+        {
+          className: "counter-btn",
+          "data-cy": "counter-btn-dec",
+          onClick: this.decrement,
+        },
         "-"
       ),
       React.createElement(
         "span",
-        { className: "counter-value" },
+        { className: "counter-value", "data-cy": "counter-value" },
         this.state.value
       ),
       React.createElement(
         "button",
-        { className: "counter-btn", onClick: this.increment },
+        {
+          className: "counter-btn",
+          "data-cy": "counter-btn-inc",
+          onClick: this.increment,
+        },
         "+"
       )
     );

@@ -1,0 +1,30 @@
+.counter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.counter-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: #f65261;
+  color: #ffffff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.counter-btn:hover {
+  background: #e03f4f;
+}
+
+.counter-value {
+  min-width: 2rem;
+  text-align: center;
+  font-size: 1.25rem;
+}

@@ -1,13 +1,13 @@
-import React, { useState, KeyboardEvent, FC } from 'react';
-import './SearchForm.css';
+import React, { useState, FC } from "react";
+import "./SearchForm.css";
 
 interface SearchFormProps {
-  initialQuery?: string;
+  initialQuery: string;
   onSearch: (query: string) => void;
 }
 
 export const SearchForm: FC<SearchFormProps> = ({
-  initialQuery = '',
+  initialQuery = "",
   onSearch,
 }) => {
   const [query, setQuery] = useState(initialQuery);
@@ -26,10 +26,17 @@ export const SearchForm: FC<SearchFormProps> = ({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         aria-label="Search movies"
+        data-cy="search-input"
       />
-      <button className="search-button" onClick={triggerSearch} onKeyDown={handleKeyDown}>
+      <button
+        className="search-button"
+        data-cy="search-btn"
+        onClick={triggerSearch}
+        onKeyDown={handleKeyDown}
+      >
         SEARCH
       </button>
     </div>
   );
+
 };

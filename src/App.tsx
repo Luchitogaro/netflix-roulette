@@ -20,6 +20,17 @@ const GENRES = {
   DOCUMENTARY: 'DOCUMENTARY',
 };
 
+interface Movie {
+  id: string;
+  posterUrl: string;
+  title: string;
+  releaseYear: number;
+  rating: number;
+  duration: string;
+  description: string;
+  genres: string[];
+}
+
 function App() {
   const [selected, setSelected] = useState(GENRES.ALL);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);

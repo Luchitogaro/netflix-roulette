@@ -5,7 +5,6 @@
 
 .app-logo {
   height: 200px;
-  height: 200px;
   pointer-events: none; 
 }
 
@@ -13,6 +12,13 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .App-header {
@@ -26,14 +32,21 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
+
 
 .counter-container,
 .search-container,
 .genre-select-container {
   padding-bottom: 2rem;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 @keyframes App-logo-spin {

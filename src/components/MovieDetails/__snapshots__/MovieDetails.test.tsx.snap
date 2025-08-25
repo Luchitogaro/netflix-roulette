@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetails matches snapshot 1`] = `
+<div>
+  <div
+    class="movie-details"
+    data-cy="movie-details"
+    data-testid="movie-details"
+  >
+    <img
+      alt="Pulp Fiction"
+      class="poster"
+      data-cy="movie-poster"
+      data-testid="movie-poster"
+      src="https://example.com/poster.jpg"
+    />
+    <div
+      class="details"
+      data-cy="movie-details-info"
+      data-testid="movie-details-info"
+    >
+      <div
+        class="header"
+        data-testid="movie-header"
+      >
+        <h1
+          class="title"
+          data-cy="movie-title"
+          data-testid="movie-title"
+        >
+          Pulp Fiction
+        </h1>
+        <span
+          class="rating-badge"
+          data-cy="movie-rating"
+          data-testid="movie-rating"
+        >
+          8.9
+        </span>
+      </div>
+      <div
+        class="genres"
+        data-cy="movie-genres"
+        data-testid="movie-genres"
+      >
+        <span
+          class="genre-tag"
+          data-testid="movie-genre-Crime"
+        >
+          Crime
+        </span>
+        <span
+          class="genre-tag"
+          data-testid="movie-genre-Drama"
+        >
+          Drama
+        </span>
+      </div>
+      <div
+        class="meta"
+        data-testid="movie-meta"
+      >
+        <span
+          class="year"
+          data-cy="movie-year"
+          data-testid="movie-year"
+        >
+          1994
+        </span>
+        <span
+          class="duration"
+          data-cy="movie-duration"
+          data-testid="movie-duration"
+        >
+          2h 34min
+        </span>
+      </div>
+      <p
+        class="description"
+        data-cy="movie-description"
+        data-testid="movie-description"
+      >
+        A classic crime film directed by Quentin Tarantino.
+      </p>
+    </div>
+  </div>
+</div>
+`;

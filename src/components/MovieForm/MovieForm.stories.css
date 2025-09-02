@@ -1,0 +1,109 @@
+.stories-container {
+  padding: 2rem;
+  background-color: #232323;
+  min-height: 100vh;
+  color: #FFFFFF;
+}
+
+.stories-title {
+  color: #F65261;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.stories-description {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #888888;
+}
+
+.stories-button-container {
+  text-align: center;
+}
+
+.stories-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #F65261;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stories-result {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #424242;
+  border-radius: 4px;
+  max-width: 600px;
+  margin: 2rem auto 0;
+}
+
+.stories-result-title {
+  color: #F65261;
+  margin-bottom: 1rem;
+}
+
+.stories-result-content {
+  color: #ffffff;
+  font-size: 0.875rem;
+}
+
+.stories-delete-content {
+  text-align: center;
+  padding: 1rem 0;
+  color: #FFFFFF;
+}
+
+.stories-delete-message {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.stories-movie-info {
+  background-color: #424242;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.stories-movie-title {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+}
+
+.stories-movie-genre {
+  margin: 0;
+  color: #F65261;
+  text-transform: uppercase;
+  font-size: 0.875rem;
+}
+
+.stories-confirm-button {
+  padding: 0.75rem 2rem;
+  background-color: #F65261;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stories-deleted-message {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #424242;
+  border-radius: 4px;
+  max-width: 600px;
+  margin: 2rem auto 0;
+  text-align: center;
+}

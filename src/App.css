@@ -32,8 +32,6 @@
   color: white;
 }
 
-
-
 .counter-container,
 .search-container,
 .genre-select-container {
@@ -47,6 +45,45 @@
   padding: 2rem 0;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.add-movie-btn {
+  padding: 0.75rem 1.5rem;
+  background-color: #F65261;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.dialog-cancel-btn {
+  padding: 0.5rem 1rem;
+  background-color: #6c757d;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.dialog-delete-btn {
+  padding: 0.5rem 1rem;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.test-helper {
+  display: none;
 }
 
 @keyframes App-logo-spin {

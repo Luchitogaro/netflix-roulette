@@ -1,0 +1,31 @@
+.stories-container {
+  padding: 2rem;
+  background-color: #232323;
+  min-height: 100vh;
+  color: #FFFFFF;
+  position: relative;
+}
+
+.stories-title {
+  color: #F65261;
+  margin-bottom: 2rem;
+}
+
+.stories-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #F65261;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.stories-close-button {
+  padding: 0.5rem 1rem;
+  background-color: #F65261;
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF;
+  cursor: pointer;
+}

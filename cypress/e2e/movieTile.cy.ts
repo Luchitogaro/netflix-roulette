@@ -26,8 +26,8 @@ describe('MovieTile', () => {
     cy.get('[data-testid="edit-btn"]').click();
     cy.get('[data-cy="last-action"]').should('contain.text', 'Last action: edit for movie 1');
     
-    // Verify popup closes after action
-    cy.get('[data-testid="popup"]').should('not.exist');
+    // Close the dialog to allow subsequent actions
+    cy.get('[data-cy="dialog-close-btn"]').click();
     
     // Test Delete action
     cy.get('[data-cy="menu-1"]').click();
@@ -43,6 +43,9 @@ describe('MovieTile', () => {
     cy.get('[data-cy="menu-1"]').click();
     cy.get('[data-testid="edit-btn"]').click();
     cy.get('[data-cy="last-action"]').should('contain.text', 'movie 1');
+    
+    // Close the dialog to allow subsequent actions
+    cy.get('[data-cy="dialog-close-btn"]').click();
     
     // Verify the movie ID is correctly passed to delete callback
     cy.get('[data-cy="menu-1"]').click();

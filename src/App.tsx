@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import {
   Counter,
+  Dialog,
   GenreSelect,
   MovieDetails,
   MovieTile,
   SearchForm,
   SortControl,
+  MovieForm,
 } from './components';
 import { Movie } from './types';
 import { mockMovies } from './test-utils/testData';
@@ -20,25 +22,49 @@ const GENRES = {
   DOCUMENTARY: 'DOCUMENTARY',
 };
 
-interface Movie {
-  id: string;
-  posterUrl: string;
-  title: string;
-  releaseYear: number;
-  rating: number;
-  duration: string;
-  description: string;
-  genres: string[];
-}
-
 function App() {
   const [selected, setSelected] = useState(GENRES.ALL);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [sortBy, setSortBy] = useState<'releaseDate' | 'title'>('releaseDate');
   const [lastAction, setLastAction] = useState<string>('');
-    const [lastActionId, setLastActionId] = useState<string>('');
+  const [lastActionId, setLastActionId] = useState<string>('');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [showMovieForm, setShowMovieForm] = useState(false);
+  const [actionMovie, setActionMovie] = useState<Movie | null>(null);
+  const [actionType, setActionType] = useState<'edit' | 'delete' | null>(null);
 
   const movies: Movie[] = mockMovies;
+
+  const handleMovieAction = (movieId: string, actionType: 'edit' | 'delete') => {
+    const movie = movies.find(m => m.id === movieId);
+    if (movie) {
+      setActionMovie(movie);
+      setActionType(actionType);
+      setDialogOpen(true);
+      setLastAction(actionType);
+      setLastActionId(movieId);
+    }
+  };
+
+  const handleEditMovie = (movieId: string) => handleMovieAction(movieId, 'edit');
+  const handleDeleteMovie = (movieId: string) => handleMovieAction(movieId, 'delete');
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+    setActionMovie(null);
+    setActionType(null);
+  };
+
+  const handleMovieActionConfirm = () => {
+    if (actionMovie) {
+      setLastAction(actionType || '');
+      setLastActionId(actionMovie.id);
+    }
+    handleCloseDialog();
+  };
+
+  const handleEditSubmit = (editedMovie: any) => handleMovieActionConfirm();
+  const handleConfirmDelete = () => handleMovieActionConfirm();
 
   return (
     <div className="App">
@@ -59,10 +85,7 @@ function App() {
           />
         </div>
 
-        <div
-          className="controls-row"
-          data-cy="controls-row"
-        >
+        <div className="controls-row" data-cy="controls-row">
           <div className="genre-select-container" data-cy="genre-select">
             <GenreSelect
               genres={Object.keys(GENRES)}
@@ -75,6 +98,13 @@ function App() {
             onChange={setSortBy}
             data-cy="sort-control"
           />
+          <button
+            onClick={() => setShowMovieForm(true)}
+            className="add-movie-btn"
+            data-cy="add-movie-btn"
+          >
+            Add Movie
+          </button>
         </div>
 
         <div className="movies-grid" data-cy="movies-grid">
@@ -93,23 +123,76 @@ function App() {
                   setSelectedMovie(selectedMovie);
                 }
               }}
-              onEdit={(movieId) => {
-                setLastAction('edit');
-                setLastActionId(movieId);
-              }}
-              onDelete={(movieId) => {
-                setLastAction('delete');
-                setLastActionId(movieId);
-              }}
+              onEdit={handleEditMovie}
+              onDelete={handleDeleteMovie}
             />
           ))}
         </div>
         {selectedMovie && <MovieDetails movie={selectedMovie} />}
         
-        {/* Test helper - shows last action for Cypress tests */}
-        <div data-cy="last-action" style={{ display: 'none' }}>
+        <div data-cy="last-action" className="test-helper">
           {lastAction && `Last action: ${lastAction} for movie ${lastActionId}`}
         </div>
+
+        {dialogOpen && actionMovie && (
+          <Dialog
+            title={`${actionType === 'edit' ? 'Edit' : 'Delete'} Movie`}
+            onClose={handleCloseDialog}
+          >
+            {actionType === 'edit' ? (
+              <div>
+                <p>Edit movie: <strong>{actionMovie.title}</strong></p>
+                <MovieForm
+                  initialMovie={{
+                    id: actionMovie.id,
+                    title: actionMovie.title,
+                    releaseDate: actionMovie.releaseYear.toString(),
+                    movieUrl: actionMovie.posterUrl,
+                    rating: actionMovie.rating || 0,
+                    genre: actionMovie.genres[0] || 'COMEDY',
+                    runtime: actionMovie.duration || '2h 0min',
+                    overview: actionMovie.description || '',
+                  }}
+                  onSubmit={handleEditSubmit}
+                />
+              </div>
+            ) : (
+              <div>
+                <p>Are you sure you want to delete <strong>{actionMovie.title}</strong>?</p>
+                <p>This action cannot be undone.</p>
+                <div className="dialog-actions">
+                  <button 
+                    onClick={handleCloseDialog}
+                    className="dialog-cancel-btn"
+                    data-cy="dialog-cancel-button"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={handleConfirmDelete}
+                    className="dialog-delete-btn"
+                    data-cy="dialog-confirm-button"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </Dialog>
+        )}
+
+        {showMovieForm && (
+          <Dialog
+            title="Add New Movie"
+            onClose={() => setShowMovieForm(false)}
+          >
+            <MovieForm
+              onSubmit={(newMovie) => {
+                setShowMovieForm(false);
+              }}
+            />
+          </Dialog>
+        )}
       </main>
     </div>
   );

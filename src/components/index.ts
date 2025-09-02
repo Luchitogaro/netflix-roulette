@@ -4,3 +4,5 @@ export { Counter } from './Counter';
 export { MovieTile } from './MovieTile';
 export { MovieDetails } from './MovieDetails';
 export { SortControl } from './SortControl';
+export { Dialog } from './Dialog';
+export { MovieForm } from './MovieForm';

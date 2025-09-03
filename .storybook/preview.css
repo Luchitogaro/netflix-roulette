@@ -1,0 +1,7 @@
+/* Global Storybook Styles */
+.storybook-wrapper {
+  background-color: #232323;
+  min-height: 100vh;
+  padding: 2rem;
+  color: #ffffff;
+}

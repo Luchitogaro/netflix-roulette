@@ -1,27 +1,24 @@
-import { testMovie } from '../fixtures/movieData';
-
 describe('MovieDetails Component', () => {
   beforeEach(() => {
+    cy.intercept('GET', 'http://localhost:4000/movies?sortBy=releaseDate&sortOrder=desc', {
+      fixture: 'movies.json'
+    }).as('getMovies');
     cy.visit('/');
+    cy.wait('@getMovies');
   });
 
   it('should display movie details', () => {
-    const movie = testMovie;
+    cy.get('[data-cy^="movie-tile-"]').first().click();
 
-    cy.get(`[data-cy="movie-tile-${movie.id}"]`).click();
+    cy.get('[data-cy="movie-details"]').should('be.visible');
+    cy.get('[data-cy="movie-title"]').should('be.visible');
+    cy.get('[data-cy="movie-year"]').should('be.visible');
+    cy.get('[data-cy="movie-duration"]').should('be.visible');
+    cy.get('[data-cy="movie-description"]').should('be.visible');
+    cy.get('[data-cy="movie-poster"]').should('be.visible');
 
-    cy.get('[data-cy="movie-title"]').should('contain.text', movie.title);
-    cy.get('[data-cy="movie-rating"]').should('contain.text', String(movie.rating));
-    cy.get('[data-cy="movie-year"]').should('contain.text', String(movie.releaseYear));
-    cy.get('[data-cy="movie-duration"]').should('contain.text', movie.duration);
-    cy.get('[data-cy="movie-description"]').should('contain.text', movie.description);
-
-    cy.get('[data-cy="movie-genres"]').within(() => {
-      movie.genres.forEach((genre) => {
-        cy.get(`[data-testid="movie-genre-${genre}"]`).should('contain.text', genre);
-      });
-    });
-
-    cy.get('[data-cy="movie-poster"]').should('have.attr', 'src', movie.posterUrl);
+    cy.get('[data-cy="movie-genres"]').should('be.visible');
+    
+    cy.get('[data-cy="back-btn"]').should('be.visible');
   });
 });

@@ -6,6 +6,7 @@
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  font-family: 'Montserrat', sans-serif;
 }
 
 .search-input {
@@ -13,26 +14,29 @@
   padding: 0 18px;
   font-size: 20px;
   font-weight: 400;
-  color: #ffffff;
-  background: rgba(50, 50, 50, 0.8);
+  color: #FFFFFF;
+  background: #333333;
   border: none;
   outline: none;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .search-input::placeholder {
-  color: #ffffff;
-  opacity: 0.3;
+  color: #BBBBBB;
+  opacity: 1;
 }
 
 .search-button {
   width: 233px;
   font-size: 20px;
   font-weight: 500;
-  color: #ffffff;
-  background: #f65261;
+  color: #FFFFFF;
+  background: #F65261;
   border: none;
   cursor: pointer;
   transition: background 0.2s ease;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
 }
 
 .search-button:hover {

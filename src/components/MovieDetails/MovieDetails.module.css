@@ -2,9 +2,10 @@
   display: flex;
   gap: 2rem;
   align-items: flex-start;
-  background: #232323;
-  padding: 2rem;
-  border-radius: 12px;
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .poster {
@@ -15,7 +16,7 @@
 
 .details {
   flex: 1;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .header {
@@ -28,12 +29,13 @@
   font-size: 2.2rem;
   font-weight: 700;
   margin: 0;
-  color: #ffffff;
+  color: #FFFFFF;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .rating-badge {
-  background: #f65261;
-  color: #ffffff;
+  background: #F65261;
+  color: #FFFFFF;
   font-weight: bold;
   border-radius: 50%;
   padding: 0.5rem 1rem;
@@ -47,7 +49,7 @@
 
 .genre-tag {
   background: #424242;
-  color: #ffffff;
+  color: #FFFFFF;
   border-radius: 20px;
   padding: 0.3rem 1rem;
   margin-right: 0.5rem;
@@ -59,18 +61,19 @@
   display: flex;
   gap: 2rem;
   font-size: 1.1rem;
-  color: #f65261;
+  color: #F65261;
   margin-bottom: 1rem;
 }
 
 .year,
 .duration {
   font-weight: 500;
-  color: #f65261;
+  color: #F65261;
 }
 
 .description {
   font-size: 1.1rem;
-  color: #555555;
+  color: #BBBBBB;
   margin-top: 1rem;
+  line-height: 1.5;
 }

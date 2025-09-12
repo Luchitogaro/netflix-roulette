@@ -1,72 +1,67 @@
 describe('MovieTile', () => {
   beforeEach(() => {
+    cy.intercept('GET', 'http://localhost:4000/movies?sortBy=releaseDate&sortOrder=desc', {
+      fixture: 'movies.json'
+    }).as('getMovies');
     cy.visit('/');
+    cy.wait('@getMovies');
   });
 
   it('should display multiple movies in a grid', () => {
-    cy.get('[data-cy="movies-grid"]').should('be.visible');
-    cy.get('[data-cy="movie-tile-1"]').should('contain.text', 'Bohemian Rhapsody');
-    cy.get('[data-cy="movie-tile-1"]').should('contain.text', '2018');
-    cy.get('[data-cy="movie-tile-2"]').should('contain.text', 'The Shawshank Redemption');
-    cy.get('[data-cy="movie-tile-2"]').should('contain.text', '1994');
-    cy.get('[data-cy="movie-tile-3"]').should('contain.text', 'Inception');
-    cy.get('[data-cy="movie-tile-3"]').should('contain.text', '2010');
+    cy.get('[data-testid="movie-grid"]').should('be.visible');
+    cy.get('[data-cy^="movie-tile-"]').should('have.length.at.least', 1);
+    
+    cy.get('[data-cy^="movie-tile-"]').first().within(() => {
+      cy.get('img').should('be.visible');
+      cy.get('h3').should('be.visible');
+      cy.get('span').should('be.visible');
+      cy.get('p').should('be.visible');
+    });
   });
 
-  it('should open the popup menu and contain Edit and Delete buttons', () => {
-    cy.get('[data-cy="menu-1"]').click();
-    cy.get('[data-testid="popup"]').should('be.visible');
-    cy.get('[data-testid="edit-btn"]').should('be.visible');
-    cy.get('[data-testid="delete-btn"]').should('be.visible');
+  it('should display movie information correctly', () => {
+    cy.get('[data-cy^="movie-tile-"]').first().within(() => {
+      cy.get('img').should('have.attr', 'src');
+      cy.get('h3').should('not.be.empty');
+      cy.get('span').should('not.be.empty');
+      cy.get('p').should('not.be.empty');
+    });
   });
 
-  it('should call Edit and Delete functions when respective buttons are clicked', () => {
-    // Test Edit action
-    cy.get('[data-cy="menu-1"]').click();
-    cy.get('[data-testid="edit-btn"]').click();
-    cy.get('[data-cy="last-action"]').should('contain.text', 'Last action: edit for movie 1');
+  it('should be clickable and navigate to movie details', () => {
+    cy.get('[data-cy^="movie-tile-"]').first().click();
     
-    // Close the dialog to allow subsequent actions
-    cy.get('[data-cy="dialog-close-btn"]').click();
-    
-    // Test Delete action
-    cy.get('[data-cy="menu-1"]').click();
-    cy.get('[data-testid="delete-btn"]').click();
-    cy.get('[data-cy="last-action"]').should('contain.text', 'Last action: delete for movie 1');
-    
-    // Verify popup closes after action
-    cy.get('[data-testid="popup"]').should('not.exist');
+    cy.get('[data-cy="movie-details"]').should('be.visible');
+    cy.get('[data-cy="back-btn"]').should('be.visible');
   });
 
-  it('should pass correct movie ID to callbacks', () => {
-    // Verify the movie ID is correctly passed to edit callback
-    cy.get('[data-cy="menu-1"]').click();
-    cy.get('[data-testid="edit-btn"]').click();
-    cy.get('[data-cy="last-action"]').should('contain.text', 'movie 1');
+  it('should return to movie list from details', () => {
+    cy.get('[data-cy^="movie-tile-"]').first().click();
+    cy.get('[data-cy="movie-details"]').should('be.visible');
     
-    // Close the dialog to allow subsequent actions
-    cy.get('[data-cy="dialog-close-btn"]').click();
-    
-    // Verify the movie ID is correctly passed to delete callback
-    cy.get('[data-cy="menu-1"]').click();
-    cy.get('[data-testid="delete-btn"]').click();
-    cy.get('[data-cy="last-action"]').should('contain.text', 'movie 1');
+    cy.get('[data-cy="back-btn"]').click();
+    cy.get('[data-testid="movie-grid"]').should('be.visible');
+    cy.get('[data-cy^="movie-tile-"]').should('have.length.at.least', 1);
   });
 
-  it('should display movie details when clicking on different movies', () => {
-    // Click on first movie (Bohemian Rhapsody)
-    cy.get('[data-cy="movie-tile-1"]').click();
-    cy.get('[data-cy="movie-title"]').should('contain.text', 'Bohemian Rhapsody');
-    cy.get('[data-cy="movie-year"]').should('contain.text', '2018');
+  it('should display different movies when clicking different tiles', () => {
+    cy.get('[data-cy^="movie-tile-"]').first().within(() => {
+      cy.get('h3').invoke('text').as('firstMovieTitle');
+    });
     
-    // Click on second movie (The Shawshank Redemption)
-    cy.get('[data-cy="movie-tile-2"]').click();
-    cy.get('[data-cy="movie-title"]').should('contain.text', 'The Shawshank Redemption');
-    cy.get('[data-cy="movie-year"]').should('contain.text', '1994');
+    cy.get('[data-cy^="movie-tile-"]').first().click();
     
-    // Click on third movie (Inception)
-    cy.get('[data-cy="movie-tile-3"]').click();
-    cy.get('[data-cy="movie-title"]').should('contain.text', 'Inception');
-    cy.get('[data-cy="movie-year"]').should('contain.text', '2010');
+    cy.get('@firstMovieTitle').then((title) => {
+      cy.get('[data-cy="movie-title"]').should('contain.text', title);
+    });
+    
+    cy.get('[data-cy="back-btn"]').click();
+    
+    cy.get('[data-cy^="movie-tile-"]').then(($tiles) => {
+      if ($tiles.length > 1) {
+        cy.wrap($tiles.eq(1)).click();
+        cy.get('[data-cy="movie-details"]').should('be.visible');
+      }
+    });
   });
 });

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import { MovieDetails } from './MovieDetails';
 import { mockMovie } from '../../test-utils/testData';

@@ -222,6 +222,7 @@ describe('MovieListPage', () => {
 
       await waitFor(() => {
         expect(screen.getByTestId('movie-tile-1')).toBeInTheDocument();
+        expect(screen.getByTestId('movie-tile-2')).toBeInTheDocument();
       });
       
       expect(screen.getByTestId('movie-tile-2')).toBeInTheDocument();

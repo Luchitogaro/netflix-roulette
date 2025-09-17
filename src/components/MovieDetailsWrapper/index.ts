@@ -1,0 +1,1 @@
+export { MovieDetailsWrapper } from './MovieDetailsWrapper';

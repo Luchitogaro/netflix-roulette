@@ -86,7 +86,6 @@ describe('<Dialog />', () => {
   });
 
   it('renders children content correctly', () => {
-    // Test that the component can handle complex children without crashing
     expect(() => {
       render(
         <Dialog title="Test Dialog" onClose={mockOnClose}>

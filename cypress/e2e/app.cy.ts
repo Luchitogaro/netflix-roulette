@@ -20,6 +20,19 @@ describe('Netflix Roulette App - Main Integration', () => {
       cy.get('[data-cy="sort-control"]').should('be.visible');
     });
 
+    it('should handle URL parameters correctly', () => {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=test&searchBy=title&filter=COMEDY&sortBy=title&sortOrder=desc', {
+        fixture: 'searchResults.json'
+      }).as('getUrlParams');
+
+      cy.visit('/?query=test&genre=COMEDY&sortBy=title');
+      cy.wait('@getUrlParams');
+
+      cy.get('[data-cy="search-input"]').should('have.value', 'test');
+      cy.get('.genre-select .active').should('contain.text', 'COMEDY');
+      cy.get('[data-cy="sort-select"]').should('have.value', 'title');
+    });
+
     it('should display movies from API', () => {
       cy.get('[data-cy^="movie-tile-"]').should('have.length.at.least', 1);
       
@@ -30,7 +43,7 @@ describe('Netflix Roulette App - Main Integration', () => {
     });
 
     it('should handle complete user workflow', () => {
-      cy.intercept('GET', 'http://localhost:4000/movies?search=Bohemian&sortBy=releaseDate&sortOrder=desc', {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=Bohemian&searchBy=title&sortBy=releaseDate&sortOrder=desc', {
         fixture: 'searchResults.json'
       }).as('searchResults');
 
@@ -38,15 +51,23 @@ describe('Netflix Roulette App - Main Integration', () => {
       cy.get('[data-cy="search-btn"]').click();
       
       cy.wait('@searchResults');
+      cy.url().should('include', 'query=Bohemian');
       
       cy.get('[data-cy^="movie-tile-"]').should('have.length', 1);
       
-      cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
       
+      cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
+      
+      cy.url().should('match', /\/\d+\?query=Bohemian/);
       cy.get('[data-cy="movie-details"]').should('be.visible');
       
       cy.get('[data-cy="back-btn"]').click();
       
+      cy.url().should('include', 'query=Bohemian');
       cy.contains('FIND YOUR MOVIE').should('be.visible');
     });
 
@@ -54,15 +75,36 @@ describe('Netflix Roulette App - Main Integration', () => {
       cy.get('.genre-select').within(() => {
         cy.contains('COMEDY').click();
       });
+      cy.url().should('include', 'genre=COMEDY');
       
       cy.get('[data-cy="sort-select"]').select('title');
+      cy.url().should('include', 'sortBy=title');
+      
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
       
       cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
+      cy.url().should('match', /\/\d+\?genre=COMEDY&sortBy=title/);
       
       cy.get('[data-cy="back-btn"]').click();
+      cy.url().should('include', 'genre=COMEDY&sortBy=title');
       
       cy.get('.genre-select .active').should('contain.text', 'COMEDY');
       cy.get('[data-cy="sort-select"]').should('have.value', 'title');
+    });
+
+    it('should handle direct movie URL navigation', () => {
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
+
+      cy.visit('/1?query=test&genre=COMEDY');
+      cy.wait('@getMovieDetails');
+
+      cy.url().should('match', /\/1\?query=test&genre=COMEDY/);
+      cy.get('[data-cy="movie-details"]').should('be.visible');
     });
   });
 

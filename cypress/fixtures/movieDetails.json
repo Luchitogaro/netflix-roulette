@@ -1,0 +1,10 @@
+{
+  "id": 1,
+  "title": "Bohemian Rhapsody",
+  "poster_path": "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+  "release_date": "2018-10-24",
+  "vote_average": 8.5,
+  "runtime": 135,
+  "overview": "A biographical drama about the legendary British rock band Queen and their lead vocalist Freddie Mercury.",
+  "genres": ["Drama", "Biography", "Music"]
+}

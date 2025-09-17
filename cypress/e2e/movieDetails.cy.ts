@@ -8,7 +8,12 @@ describe('MovieDetails Component', () => {
   });
 
   it('should display movie details', () => {
+    cy.intercept('GET', 'http://localhost:4000/movies/1', {
+      fixture: 'movieDetails.json'
+    }).as('getMovieDetails');
+
     cy.get('[data-cy^="movie-tile-"]').first().click();
+    cy.wait('@getMovieDetails');
 
     cy.get('[data-cy="movie-details"]').should('be.visible');
     cy.get('[data-cy="movie-title"]').should('be.visible');

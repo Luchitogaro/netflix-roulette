@@ -1,13 +1,13 @@
 .container {
   min-height: 100vh;
   background-color: #232323;
-  color: #FFFFFF;
+  color: #ffffff;
   font-family: 'Montserrat', sans-serif;
 }
 
 .header {
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-              url('../../assets/header-background.png');
+    url('../../assets/header-background.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -29,14 +29,14 @@
 .logo {
   font-size: 20px;
   font-weight: 300;
-  color: #F65261;
+  color: #f65261;
   text-transform: lowercase;
 }
 
 .add-movie-btn {
   background: transparent;
-  border: 1px solid #F65261;
-  color: #F65261;
+  border: 1px solid #f65261;
+  color: #f65261;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
@@ -48,8 +48,8 @@
 }
 
 .add-movie-btn:hover {
-  background-color: #F65261;
-  color: #FFFFFF;
+  background-color: #f65261;
+  color: #ffffff;
 }
 
 .header-content {
@@ -65,7 +65,7 @@
   text-transform: uppercase;
   margin-bottom: 20px;
   letter-spacing: 1px;
-  color: #FFFFFF;
+  color: #ffffff;
   line-height: 1.2;
 }
 
@@ -89,8 +89,8 @@
 
 .back-btn {
   background: transparent;
-  border: 1px solid #F65261;
-  color: #F65261;
+  border: 1px solid #f65261;
+  color: #f65261;
   padding: 10px 20px;
   border-radius: 4px;
   cursor: pointer;
@@ -101,8 +101,8 @@
 }
 
 .back-btn:hover {
-  background-color: #F65261;
-  color: #FFFFFF;
+  background-color: #f65261;
+  color: #ffffff;
 }
 
 .movie-grid {
@@ -116,7 +116,29 @@
   grid-column: 1 / -1;
   text-align: center;
   font-size: 18px;
-  color: #BBBBBB;
+  color: #bbbbbb;
+  padding: 40px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.error {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 18px;
+  color: #f65261;
+  padding: 40px;
+  font-family: 'Montserrat', sans-serif;
+  background-color: rgba(246, 82, 97, 0.1);
+  border: 1px solid rgba(246, 82, 97, 0.3);
+  border-radius: 8px;
+  margin: 20px;
+}
+
+.no-movies {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 18px;
+  color: #bbbbbb;
   padding: 40px;
   font-family: 'Montserrat', sans-serif;
 }
@@ -131,7 +153,7 @@
 .footer .logo {
   margin-bottom: 0;
   font-size: 16px;
-  color: #F65261;
+  color: #f65261;
 }
 
 @media (max-width: 768px) {
@@ -139,37 +161,76 @@
     padding: 20px;
     min-height: 300px;
   }
-  
+
   .header-top {
     margin-bottom: 15px;
   }
-  
+
   .main-title {
     font-size: 28px;
     margin-bottom: 15px;
   }
-  
+
   .search-container {
     max-width: 100%;
   }
-  
+
   .filter-bar {
     padding: 20px;
     flex-direction: column;
     gap: 20px;
     align-items: flex-start;
   }
-  
+
   .movie-grid {
     padding: 20px;
     grid-template-columns: 1fr;
   }
-  
+
   .content {
     padding: 20px;
   }
-  
+
   .footer {
     padding: 20px;
   }
+}
+
+.dialog-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: flex-end;
+}
+
+.confirm-btn {
+  padding: 10px 20px;
+  background-color: #f65261;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.confirm-btn:hover {
+  background-color: #e04552;
+}
+
+.cancel-btn {
+  padding: 10px 20px;
+  background-color: #555;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn:hover {
+  background-color: #666;
 }

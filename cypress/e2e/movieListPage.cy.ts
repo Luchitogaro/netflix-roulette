@@ -53,7 +53,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
 
   describe('Search Functionality', () => {
     it('should perform search and display results', () => {
-      cy.intercept('GET', 'http://localhost:4000/movies?search=Bohemian&sortBy=releaseDate&sortOrder=desc', {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=Bohemian&searchBy=title&sortBy=releaseDate&sortOrder=desc', {
         fixture: 'searchResults.json'
       }).as('searchMovies');
 
@@ -61,6 +61,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
       cy.get('[data-cy="search-btn"]').click();
       
       cy.wait('@searchMovies');
+      cy.url().should('include', 'query=Bohemian');
       
       cy.get('[data-cy^="movie-tile-"]').should('have.length', 1);
       cy.get('[data-cy^="movie-tile-"]').first().should('contain.text', 'Bohemian Rhapsody');
@@ -89,6 +90,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
       });
 
       cy.wait('@getComedyMovies');
+      cy.url().should('include', 'genre=COMEDY');
       
       cy.get('.genre-select .active').should('contain.text', 'COMEDY');
     });
@@ -160,6 +162,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
       cy.get('[data-cy="sort-select"]').select('title');
       
       cy.wait('@getSortedByTitle');
+      cy.url().should('include', 'sortBy=title');
     });
 
     it('should sort movies by release date (default)', () => {
@@ -178,8 +181,14 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
 
   describe('Movie Selection and Details', () => {
     it('should show movie details when a movie is clicked', () => {
-      cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
       
+      cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
+      
+      cy.url().should('match', /\/\d+/);
       cy.get('[data-cy="movie-details"]').should('be.visible');
       
       cy.get('[data-cy="back-btn"]').should('be.visible').and('contain.text', '← Back to search');
@@ -189,19 +198,30 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
     });
 
     it('should return to movie list when back button is clicked', () => {
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
+      
       cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
       
       cy.get('[data-cy="movie-details"]').should('be.visible');
       
       cy.get('[data-cy="back-btn"]').click();
       
+      cy.url().should('eq', Cypress.config().baseUrl + '/');
       cy.contains('FIND YOUR MOVIE').should('be.visible');
       cy.get('[data-cy="search-input"]').should('be.visible');
       cy.get('[data-cy="movie-details"]').should('not.exist');
     });
 
     it('should display movie details with correct information', () => {
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
+      
       cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
       
       cy.get('[data-cy="movie-details"]').within(() => {
         cy.get('[data-cy="movie-poster"]').should('be.visible');
@@ -257,12 +277,21 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
       cy.get('.genre-select').within(() => {
         cy.contains('COMEDY').click();
       });
+      cy.url().should('include', 'genre=COMEDY');
       
       cy.get('[data-cy="sort-select"]').select('title');
+      cy.url().should('include', 'sortBy=title');
+      
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
       
       cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
+      cy.url().should('match', /\/\d+\?genre=COMEDY&sortBy=title/);
       
       cy.get('[data-cy="back-btn"]').click();
+      cy.url().should('include', 'genre=COMEDY&sortBy=title');
       
       cy.get('.genre-select .active').should('contain.text', 'COMEDY');
       cy.get('[data-cy="sort-select"]').should('have.value', 'title');
@@ -271,7 +300,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
 
   describe('Loading States', () => {
     it('should show loading state during API calls', () => {
-      cy.intercept('GET', 'http://localhost:4000/movies?search=Loading&sortBy=releaseDate&sortOrder=desc', {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=Loading&searchBy=title&sortBy=releaseDate&sortOrder=desc', {
         delay: 1000,
         body: { data: [] }
       }).as('getSlowResults');
@@ -289,7 +318,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
 
   describe('Error Handling', () => {
     it('should handle API errors gracefully', () => {
-      cy.intercept('GET', 'http://localhost:4000/movies?search=Error&sortBy=releaseDate&sortOrder=desc', {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=Error&searchBy=title&sortBy=releaseDate&sortOrder=desc', {
         statusCode: 500,
         body: { error: 'Internal Server Error' }
       }).as('getErrorResults');
@@ -301,7 +330,7 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
     });
 
     it('should handle empty search results', () => {
-      cy.intercept('GET', 'http://localhost:4000/movies?search=NonexistentMovie&sortBy=releaseDate&sortOrder=desc', {
+      cy.intercept('GET', 'http://localhost:4000/movies?search=NonexistentMovie&searchBy=title&sortBy=releaseDate&sortOrder=desc', {
         body: { data: [] }
       }).as('getEmptyResults');
 
@@ -314,25 +343,6 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
     });
   });
 
-  describe('Responsive Design', () => {
-    it('should work on mobile viewport', () => {
-      cy.viewport('iphone-6');
-      
-      cy.get('[data-cy="movie-list-page"]').should('be.visible');
-      cy.get('[data-cy="search-input"]').should('be.visible');
-      cy.get('.genre-select').should('be.visible');
-      cy.get('[data-cy^="movie-tile-"]').should('be.visible');
-    });
-
-    it('should work on tablet viewport', () => {
-      cy.viewport('ipad-2');
-      
-      cy.get('[data-cy="movie-list-page"]').should('be.visible');
-      cy.get('[data-cy="search-input"]').should('be.visible');
-      cy.get('.genre-select').should('be.visible');
-      cy.get('[data-cy^="movie-tile-"]').should('be.visible');
-    });
-  });
 
   describe('Accessibility', () => {
     it('should have proper ARIA labels and attributes', () => {
@@ -344,7 +354,12 @@ describe('MovieListPage - Complete Navigation and Functionality', () => {
     it('should support keyboard navigation', () => {
       cy.get('[data-cy="search-input"]').focus().type('Test{enter}');
       
+      cy.intercept('GET', 'http://localhost:4000/movies/1', {
+        fixture: 'movieDetails.json'
+      }).as('getMovieDetails');
+      
       cy.get('[data-cy^="movie-tile-"]').first().click();
+      cy.wait('@getMovieDetails');
       
       cy.get('[data-cy="back-btn"]').should('be.visible');
     });

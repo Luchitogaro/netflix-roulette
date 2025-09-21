@@ -9,3 +9,5 @@ export { MovieForm } from './MovieForm';
 export { MovieListPage } from './MovieListPage';
 export { SearchFormWrapper } from './SearchFormWrapper';
 export { MovieDetailsWrapper } from './MovieDetailsWrapper';
+export { AddMovieForm } from './AddMovieForm';
+export { EditMovieForm } from './EditMovieForm';

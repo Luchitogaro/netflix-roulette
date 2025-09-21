@@ -19,7 +19,7 @@
 .label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #F65261;
+  color: #f65261;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -40,7 +40,7 @@
 .select:focus,
 .textarea:focus {
   outline: none;
-  border-color: #F65261;
+  border-color: #f65261;
 }
 
 .input::placeholder {
@@ -99,7 +99,7 @@
 }
 
 .submit-button {
-  background: #F65261;
+  background: #f65261;
   color: #ffffff;
 }
 
@@ -110,4 +110,10 @@
 .submit-button:disabled {
   background: #666666;
   cursor: not-allowed;
+}
+
+.error {
+  color: #f65261;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
 }

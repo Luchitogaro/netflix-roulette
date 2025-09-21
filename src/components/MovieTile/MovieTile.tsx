@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './MovieTile.module.css';
 
 export interface MovieTileProps {
@@ -23,6 +24,7 @@ export const MovieTile: React.FC<MovieTileProps> = ({
   onDelete,
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -60,7 +62,7 @@ export const MovieTile: React.FC<MovieTileProps> = ({
             data-cy={`edit-${id}`}
             onClick={(e) => {
               e.stopPropagation();
-              onEdit?.(id);
+              navigate(`/${id}/edit`);
               setMenuOpen(false);
             }}
           >

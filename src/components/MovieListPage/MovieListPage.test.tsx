@@ -217,7 +217,7 @@ describe('MovieListPage', () => {
       expect(mockNavigate).toHaveBeenCalledWith('/1?');
     });
 
-    it('renders edit and delete buttons for each movie', async () => {
+    it('renders delete buttons for each movie', async () => {
       renderMovieListPage();
 
       await waitFor(() => {
@@ -228,7 +228,6 @@ describe('MovieListPage', () => {
       expect(screen.getByTestId('movie-tile-2')).toBeInTheDocument();
       expect(screen.getByTestId('edit-btn-1')).toBeInTheDocument();
       expect(screen.getByTestId('delete-btn-1')).toBeInTheDocument();
-      expect(screen.getByTestId('edit-btn-2')).toBeInTheDocument();
       expect(screen.getByTestId('delete-btn-2')).toBeInTheDocument();
     });
 
@@ -238,6 +237,15 @@ describe('MovieListPage', () => {
       const addButton = screen.getByTestId('add-movie-btn');
       expect(addButton).toBeInTheDocument();
       expect(addButton).toHaveTextContent('+ ADD MOVIE');
+    });
+
+    it('navigates to /new when add movie button is clicked', async () => {
+      renderMovieListPage();
+
+      const addButton = screen.getByTestId('add-movie-btn');
+      fireEvent.click(addButton);
+
+      expect(mockNavigate).toHaveBeenCalledWith('/new');
     });
   });
 

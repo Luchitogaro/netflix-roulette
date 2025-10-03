@@ -1,0 +1,14 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "title": "Bohemian Rhapsody",
+      "release_date": "2018-10-24",
+      "poster_path": "https://image.tmdb.org/t/p/w500/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+      "vote_average": 8.5,
+      "runtime": 134,
+      "overview": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970.",
+      "genres": ["Drama", "Biography", "Music"]
+    }
+  ]
+}

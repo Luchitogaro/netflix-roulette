@@ -1,0 +1,70 @@
+{
+  "byTitle": {
+    "data": [
+      {
+        "id": 1,
+        "title": "Bohemian Rhapsody",
+        "release_date": "2018-10-24",
+        "poster_path": "https://image.tmdb.org/t/p/w500/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+        "vote_average": 8.5,
+        "runtime": 134,
+        "overview": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970.",
+        "genres": ["Drama", "Biography", "Music"]
+      },
+      {
+        "id": 8,
+        "title": "Free Solo",
+        "release_date": "2018-09-28",
+        "poster_path": "https://image.tmdb.org/t/p/w500/yj2Qf2vYKdFk5YmTGgJWA2aEwVE.jpg",
+        "vote_average": 8.2,
+        "runtime": 100,
+        "overview": "Follow Alex Honnold as he attempts to become the first person to ever free solo climb Yosemite's 3,000 foot high El Capitan wall. With no ropes or safety gear, this would arguably be the greatest feat in rock climbing history.",
+        "genres": ["Documentary", "Adventure"]
+      },
+      {
+        "id": 3,
+        "title": "Inception",
+        "release_date": "2010-07-16",
+        "poster_path": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+        "vote_average": 8.8,
+        "runtime": 148,
+        "overview": "Cobb, a skilled thief who commits corporate espionage by infiltrating the subconscious of his targets is offered a chance to regain his old life as payment for a task considered to be impossible: inception.",
+        "genres": ["Action", "Adventure", "Sci-Fi"]
+      }
+    ]
+  },
+  "byReleaseDate": {
+    "data": [
+      {
+        "id": 1,
+        "title": "Bohemian Rhapsody",
+        "release_date": "2018-10-24",
+        "poster_path": "https://image.tmdb.org/t/p/w500/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+        "vote_average": 8.5,
+        "runtime": 134,
+        "overview": "Singer Freddie Mercury, guitarist Brian May, drummer Roger Taylor and bass guitarist John Deacon take the music world by storm when they form the rock 'n' roll band Queen in 1970.",
+        "genres": ["Drama", "Biography", "Music"]
+      },
+      {
+        "id": 8,
+        "title": "Free Solo",
+        "release_date": "2018-09-28",
+        "poster_path": "https://image.tmdb.org/t/p/w500/yj2Qf2vYKdFk5YmTGgJWA2aEwVE.jpg",
+        "vote_average": 8.2,
+        "runtime": 100,
+        "overview": "Follow Alex Honnold as he attempts to become the first person to ever free solo climb Yosemite's 3,000 foot high El Capitan wall. With no ropes or safety gear, this would arguably be the greatest feat in rock climbing history.",
+        "genres": ["Documentary", "Adventure"]
+      },
+      {
+        "id": 9,
+        "title": "The Grand Budapest Hotel",
+        "release_date": "2014-02-26",
+        "poster_path": "https://image.tmdb.org/t/p/w500/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
+        "vote_average": 8.1,
+        "runtime": 99,
+        "overview": "The Grand Budapest Hotel tells of a legendary concierge at a famous European hotel between the wars and his friendship with a young employee who becomes his trusted protégé.",
+        "genres": ["Comedy", "Drama"]
+      }
+    ]
+  }
+}

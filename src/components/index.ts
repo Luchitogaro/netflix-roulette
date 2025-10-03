@@ -6,3 +6,6 @@ export { MovieDetails } from './MovieDetails';
 export { SortControl } from './SortControl';
 export { Dialog } from './Dialog';
 export { MovieForm } from './MovieForm';
+export { MovieListPage } from './MovieListPage';
+export { SearchFormWrapper } from './SearchFormWrapper';
+export { MovieDetailsWrapper } from './MovieDetailsWrapper';

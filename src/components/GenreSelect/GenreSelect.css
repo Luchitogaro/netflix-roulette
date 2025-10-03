@@ -12,12 +12,11 @@
   box-sizing: border-box;
 }
 
-
 .genre-btn {
   padding: 0;
   border: none;
   background: transparent;
-  color: #fff;
+  color: #FFFFFF;
   cursor: pointer;
   opacity: 0.6;
   font-size: 1rem;
@@ -31,18 +30,15 @@
   align-items: flex-end;
 }
 
-
 .genre-btn:hover {
   opacity: 1;
 }
 
-
 .genre-btn.active {
   opacity: 1;
-  color: #fff;
+  color: #F65261;
   font-weight: 700;
 }
-
 
 .genre-btn.active::after {
   content: "";
@@ -51,7 +47,7 @@
   bottom: -2px;
   width: 100%;
   height: 3px;
-  background: #f65261;
+  background: #F65261;
   border-radius: 2px;
 }
 

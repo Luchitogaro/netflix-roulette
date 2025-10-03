@@ -18,7 +18,7 @@ describe('<MovieForm />', () => {
 
   it('renders all form fields', () => {
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     expect(screen.getByLabelText(/title/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/release date/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/movie url/i)).toBeInTheDocument();
@@ -30,14 +30,14 @@ describe('<MovieForm />', () => {
 
   it('renders submit and reset buttons', () => {
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument();
   });
 
   it('has correct data-cy attributes for testing', () => {
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     expect(screen.getByTestId('movie-form')).toBeInTheDocument();
     expect(screen.getByTestId('movie-form-title')).toBeInTheDocument();
     expect(screen.getByTestId('movie-form-release-date')).toBeInTheDocument();
@@ -59,11 +59,11 @@ describe('<MovieForm />', () => {
       rating: 8.5,
       genre: 'COMEDY',
       runtime: '1h 30min',
-      overview: 'Test overview'
+      overview: 'Test overview',
     };
 
     render(<MovieForm initialMovie={initialMovie} onSubmit={mockOnSubmit} />);
-    
+
     expect(screen.getByDisplayValue('Test Movie')).toBeInTheDocument();
     expect(screen.getByDisplayValue('2023-01-01')).toBeInTheDocument();
     expect(screen.getByDisplayValue('https://example.com')).toBeInTheDocument();
@@ -76,7 +76,7 @@ describe('<MovieForm />', () => {
   it('calls onSubmit with form data when form is submitted', async () => {
     const user = userEvent.setup();
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     // Fill out the form
     await user.type(screen.getByLabelText(/title/i), 'Test Movie');
     await user.type(screen.getByLabelText(/release date/i), '2023-01-01');
@@ -85,10 +85,10 @@ describe('<MovieForm />', () => {
     await user.selectOptions(screen.getByLabelText(/genre/i), 'COMEDY');
     await user.type(screen.getByLabelText(/runtime/i), '1h 30min');
     await user.type(screen.getByLabelText(/overview/i), 'Test overview');
-    
+
     // Submit the form
     await user.click(screen.getByRole('button', { name: /submit/i }));
-    
+
     expect(mockOnSubmit).toHaveBeenCalledWith({
       id: undefined,
       title: 'Test Movie',
@@ -97,7 +97,7 @@ describe('<MovieForm />', () => {
       rating: 8.5,
       genre: 'COMEDY',
       runtime: '1h 30min',
-      overview: 'Test overview'
+      overview: 'Test overview',
     });
   });
 
@@ -109,24 +109,24 @@ describe('<MovieForm />', () => {
       releaseDate: '2023-01-01',
       movieUrl: 'https://example.com',
       rating: 8.0,
-      genre: 'DRAMA',
+      genre: 'COMEDY',
       runtime: '2h',
-      overview: 'Original overview'
+      overview: 'Original overview',
     };
 
     render(<MovieForm initialMovie={initialMovie} onSubmit={mockOnSubmit} />);
-    
-    // Change the title
-    await user.clear(screen.getByLabelText(/title/i));
-    await user.type(screen.getByLabelText(/title/i), 'Updated Title');
-    
+
+    const titleInput = screen.getByLabelText(/title/i);
+    await user.clear(titleInput);
+    await user.type(titleInput, 'Updated Title');
+
     // Submit the form
     await user.click(screen.getByRole('button', { name: /submit/i }));
-    
+
     // Verify that onSubmit was called and check the received data
     expect(mockOnSubmit).toHaveBeenCalled();
     const submittedData = mockOnSubmit.mock.calls[0][0];
-    
+
     // Check that the ID is preserved
     expect(submittedData.id).toBe('123');
     expect(submittedData.title).toBe('Updated Title');
@@ -140,14 +140,14 @@ describe('<MovieForm />', () => {
   it('resets form when reset button is clicked', async () => {
     const user = userEvent.setup();
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     // Fill out the form
     await user.type(screen.getByLabelText(/title/i), 'Test Movie');
     await user.type(screen.getByLabelText(/overview/i), 'Test overview');
-    
+
     // Click reset
     await user.click(screen.getByRole('button', { name: /reset/i }));
-    
+
     // Check that fields are cleared
     expect(screen.getByLabelText(/title/i)).toHaveValue('');
     expect(screen.getByLabelText(/overview/i)).toHaveValue('');
@@ -156,10 +156,10 @@ describe('<MovieForm />', () => {
   it('prevents form submission when required fields are empty', async () => {
     const user = userEvent.setup();
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     // Try to submit without filling required fields
     await user.click(screen.getByRole('button', { name: /submit/i }));
-    
+
     // Note: HTML5 validation might not prevent submission in test environment
     // This test verifies the form renders correctly
     expect(screen.getByTestId('movie-form')).toBeInTheDocument();
@@ -168,13 +168,13 @@ describe('<MovieForm />', () => {
   it('handles rating input correctly', async () => {
     const user = userEvent.setup();
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     const ratingInput = screen.getByLabelText(/rating/i);
-    
+
     // Test valid rating
     await user.type(ratingInput, '9.5');
     expect(ratingInput).toHaveValue(9.5);
-    
+
     // Test decimal rating
     await user.clear(ratingInput);
     await user.type(ratingInput, '7.8');
@@ -183,10 +183,10 @@ describe('<MovieForm />', () => {
 
   it('renders genre options correctly', () => {
     render(<MovieForm onSubmit={mockOnSubmit} />);
-    
+
     const genreSelect = screen.getByLabelText(/genre/i);
     expect(genreSelect).toBeInTheDocument();
-    
+
     const options = screen.getAllByRole('option');
     expect(options).toHaveLength(5); // Including "Select Genre" option
     expect(options[0]).toHaveTextContent('Select Genre');

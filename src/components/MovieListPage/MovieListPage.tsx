@@ -4,13 +4,12 @@ import { GenreSelect } from '../GenreSelect';
 import { SortControl } from '../SortControl';
 import { MovieTile } from '../MovieTile';
 import { Dialog } from '../Dialog';
-import { MovieForm } from '../MovieForm';
 import { Movie } from '../../types';
 import styles from './MovieListPage.module.css';
 
 const GENRES = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
-type DialogType = 'add' | 'edit' | 'delete' | null;
+type DialogType = 'delete' | null;
 
 interface DialogState {
   type: DialogType;
@@ -125,14 +124,7 @@ export const MovieListPage: React.FC = () => {
   };
 
   const handleAddMovie = () => {
-    setDialogState({ type: 'add' });
-  };
-
-  const handleEditMovie = (movieId: string) => {
-    const movie = movies.find((m) => m.id === movieId);
-    if (movie) {
-      setDialogState({ type: 'edit', movieId, movie });
-    }
+    navigate('/new');
   };
 
   const handleDeleteMovie = (movieId: string) => {
@@ -146,11 +138,6 @@ export const MovieListPage: React.FC = () => {
     setDialogState({ type: null });
   };
 
-  const handleMovieFormSubmit = (movieData: any) => {
-    console.log('Movie form submitted:', movieData);
-    setDialogState({ type: null });
-  };
-
   const handleDeleteConfirm = () => {
     if (dialogState.movieId) {
       console.log('Delete confirmed for movie:', dialogState.movieId);
@@ -160,30 +147,6 @@ export const MovieListPage: React.FC = () => {
 
   const renderDialogContent = () => {
     switch (dialogState.type) {
-      case 'add':
-        return <MovieForm onSubmit={handleMovieFormSubmit} />;
-
-      case 'edit':
-        if (dialogState.movie) {
-          const initialMovieData = {
-            id: dialogState.movie.id,
-            title: dialogState.movie.title,
-            releaseDate: dialogState.movie.releaseYear.toString(),
-            movieUrl: dialogState.movie.posterUrl,
-            rating: dialogState.movie.rating || 0,
-            genre: dialogState.movie.genres[0] || 'COMEDY',
-            runtime: dialogState.movie.duration?.replace(' min', '') || '',
-            overview: dialogState.movie.description || '',
-          };
-          return (
-            <MovieForm
-              initialMovie={initialMovieData}
-              onSubmit={handleMovieFormSubmit}
-            />
-          );
-        }
-        return null;
-
       case 'delete':
         return (
           <div>
@@ -214,10 +177,6 @@ export const MovieListPage: React.FC = () => {
 
   const getDialogTitle = () => {
     switch (dialogState.type) {
-      case 'add':
-        return 'ADD MOVIE';
-      case 'edit':
-        return 'EDIT MOVIE';
       case 'delete':
         return 'DELETE MOVIE';
       default:
@@ -280,7 +239,6 @@ export const MovieListPage: React.FC = () => {
               releaseYear={movie.releaseYear}
               genres={movie.genres}
               onClick={handleMovieClick}
-              onEdit={handleEditMovie}
               onDelete={handleDeleteMovie}
             />
           ))

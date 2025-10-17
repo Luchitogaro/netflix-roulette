@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Outlet } from 'react-router-dom';
 import { SearchForm } from '../SearchForm';
 import styles from '../MovieListPage/MovieListPage.module.css';
 
@@ -23,6 +23,7 @@ export const SearchFormWrapper: React.FC = () => {
       <div className={styles['search-container']}>
         <SearchForm initialQuery={searchQuery} onSearch={handleSearch} />
       </div>
+      <Outlet />
     </>
   );
 };

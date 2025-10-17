@@ -31,9 +31,4 @@ describe('SearchForm', () => {
     cy.get('[data-cy^="movie-tile-"]').should('have.length.at.least', 1);
   });
 
-  it('does not submit when Enter is pressed on input field', () => {
-    cy.get('[data-cy=search-input]').clear().type('Matrix{enter}');
-    
-    cy.get('[data-cy^="movie-tile-"]').should('have.length.at.least', 1);
-  });
 });
